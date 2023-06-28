@@ -17,6 +17,7 @@ export const addComment = (req, res) => {
     const token = req.cookies.accessToken;
     if (!token) return res.status(401).json("Not logged in!");
 
+    //Todo : Hardcoded key
     jwt.verify(token, "TypSML6yG7aHIqb969hb", (err, userInfo) => {
         if (err) return res.status(403).json("Token is not valid!");
 
