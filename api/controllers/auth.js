@@ -2,6 +2,8 @@ import { db } from "../connect.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+const MAXAGE = 31 * 24 * 60 * 60;
+
 export const register = (req, res) => {
     // Check user if exists
     const q = "SELECT * FROM users WHERE username = ?";
@@ -51,6 +53,7 @@ export const login = (req, res) => {
             .status(200)
             .cookie("accessToken", token, {
                 httpOnly: true,
+                maxAge: MAXAGE * 1000,
             })
             .json(others);
     });
