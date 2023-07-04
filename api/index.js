@@ -18,9 +18,10 @@ app.use((req, res, next) => {
     next();
 });
 app.use(express.json());
+//TODO: CORS not reading config variable
 app.use(
     cors({
-        origin: "config.hostname",
+        origin: config.hostname,
     })
 );
 app.use(cookieParser());
