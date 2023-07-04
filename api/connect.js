@@ -1,6 +1,6 @@
 import mysql from "mysql2";
 
-// Todo: Use env file
+//TODO: Use env file
 export const db = mysql.createConnection({
     host: "localhost",
     user: "root",

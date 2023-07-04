@@ -7,11 +7,11 @@ export const getPosts = (req, res) => {
     const token = req.cookies.accessToken;
     if (!token) return res.status(401).json("Not logged in!");
 
-    //Todo: Use env
+    //TODO: Use env
     jwt.verify(token, "TypSML6yG7aHIqb969hb", (err, userInfo) => {
         if (err) return res.status(403).json("Token is not valid!");
 
-        // Todo: Didnt understand what this returns
+        //TODO: Didnt understand what this returns
         const q =
             userId !== "undefined"
                 ? `SELECT p.*, u.id AS userId, name, profilePic FROM posts AS p JOIN users AS u ON (u.id = p.userId) WHERE p.userId = ? ORDER BY p.createdAt DESC`
@@ -33,11 +33,11 @@ export const addPost = (req, res) => {
     const token = req.cookies.accessToken;
     if (!token) return res.status(401).json("Not logged in!");
 
-    //Todo: Use env
+    //TODO: Use env
     jwt.verify(token, "TypSML6yG7aHIqb969hb", (err, userInfo) => {
         if (err) return res.status(403).json("Token is not valid!");
 
-        // Todo: Didnt understand what this returns
+        //TODO: Didnt understand what this returns
         const q =
             "INSERT INTO posts (`desc`, `img`, `createdAt`, `userId`) VALUES (?)";
 
@@ -59,7 +59,7 @@ export const deletePost = (req, res) => {
     const token = req.cookies.accessToken;
     if (!token) return res.status(401).json("Not logged in!");
 
-    //Todo : Hardcoded key
+    //TODO : Hardcoded key
     jwt.verify(token, "TypSML6yG7aHIqb969hb", (err, userInfo) => {
         if (err) return res.status(403).json("Token is not valid!");
 

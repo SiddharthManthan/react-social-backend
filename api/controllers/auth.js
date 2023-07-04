@@ -13,7 +13,7 @@ export const register = (req, res) => {
 
         // Create New User
         // Hash the password
-        // Todo: How does salt work ?
+        //TODO: How does salt work ?
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
@@ -25,7 +25,7 @@ export const register = (req, res) => {
             hashedPassword,
             req.body.name,
         ];
-        // Todo: Pass an array like this
+        //TODO: Pass an array like this
         db.query(q, [values], (err, data) => {
             if (err) res.status(500).json(err);
             return res.status(200).json("User has been created.");
@@ -46,7 +46,7 @@ export const login = (req, res) => {
         if (!checkPassword)
             return res.status(400).json("Wrong Password or Username");
 
-        // Todo: Use env
+        //TODO: Use env
         const token = jwt.sign({ id: data[0].id }, "TypSML6yG7aHIqb969hb");
         const { password, ...others } = data[0];
         return res

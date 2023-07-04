@@ -16,7 +16,7 @@ export const updateUser = (req, res) => {
     const token = req.cookies.accessToken;
     if (!token) return res.status(401).json("Not authenticated!");
 
-    //Todo : Hardcoded key
+    //TODO : Hardcoded key
     jwt.verify(token, "TypSML6yG7aHIqb969hb", (err, userInfo) => {
         if (err) return res.status(403).json("Token is not valid!");
 
