@@ -1,9 +1,9 @@
 import mysql from "mysql2";
+import config from "./config.js";
 
-//TODO: Use env file
 export const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: "social",
+    host: config.db.host,
+    user: config.db.user,
+    password: config.db.password,
+    database: config.db.name,
 });

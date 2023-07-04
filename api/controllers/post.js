@@ -1,14 +1,14 @@
 import moment from "moment/moment.js";
 import { db } from "../connect.js";
 import jwt from "jsonwebtoken";
+import config from "../config.js";
 
 export const getPosts = (req, res) => {
     const userId = req.query.userId;
     const token = req.cookies.accessToken;
     if (!token) return res.status(401).json("Not logged in!");
 
-    //TODO: Use env
-    jwt.verify(token, "TypSML6yG7aHIqb969hb", (err, userInfo) => {
+    jwt.verify(token, config.jwtsecret, (err, userInfo) => {
         if (err) return res.status(403).json("Token is not valid!");
 
         //TODO: Didnt understand what this returns
@@ -33,8 +33,7 @@ export const addPost = (req, res) => {
     const token = req.cookies.accessToken;
     if (!token) return res.status(401).json("Not logged in!");
 
-    //TODO: Use env
-    jwt.verify(token, "TypSML6yG7aHIqb969hb", (err, userInfo) => {
+    jwt.verify(token, config.jwtsecret, (err, userInfo) => {
         if (err) return res.status(403).json("Token is not valid!");
 
         //TODO: Didnt understand what this returns
@@ -59,8 +58,7 @@ export const deletePost = (req, res) => {
     const token = req.cookies.accessToken;
     if (!token) return res.status(401).json("Not logged in!");
 
-    //TODO : Hardcoded key
-    jwt.verify(token, "TypSML6yG7aHIqb969hb", (err, userInfo) => {
+    jwt.verify(token, config.jwtsecret, (err, userInfo) => {
         if (err) return res.status(403).json("Token is not valid!");
 
         const q = "DELETE FROM posts WHERE `id`=? AND `userId` = ?";

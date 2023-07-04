@@ -8,6 +8,7 @@ import relationshipRoutes from "./routes/relationships.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import multer from "multer";
+import config from "./config.js";
 
 const app = express();
 
@@ -19,8 +20,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(
     cors({
-        //TODO: Hardcoded url
-        origin: "http://localhost:5173",
+        origin: "config.hostname",
     })
 );
 app.use(cookieParser());
@@ -48,6 +48,6 @@ app.use("/api/comments", commentRoutes);
 app.use("/api/likes", likeRoutes);
 app.use("/api/relationships", relationshipRoutes);
 
-app.listen(8800, () => {
+app.listen(config.apiport, () => {
     console.log("API Working !");
 });

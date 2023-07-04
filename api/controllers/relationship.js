@@ -1,5 +1,6 @@
 import { db } from "../connect.js";
 import jwt from "jsonwebtoken";
+import config from "../config.js";
 
 export const getRelationships = (req, res) => {
     const q =
@@ -17,8 +18,7 @@ export const addRelationship = (req, res) => {
     const token = req.cookies.accessToken;
     if (!token) return res.status(401).json("Not logged in!");
 
-    //TODO: Hardcoded key
-    jwt.verify(token, "TypSML6yG7aHIqb969hb", (err, userInfo) => {
+    jwt.verify(token, config.jwtsecret, (err, userInfo) => {
         if (err) return res.status(403).json("Token is not valid!");
 
         const q =
@@ -36,8 +36,7 @@ export const deleteRelationship = (req, res) => {
     const token = req.cookies.accessToken;
     if (!token) return res.status(401).json("Not logged in!");
 
-    //TODO: Hardcoded key
-    jwt.verify(token, "TypSML6yG7aHIqb969hb", (err, userInfo) => {
+    jwt.verify(token, config.jwtsecret, (err, userInfo) => {
         if (err) return res.status(403).json("Token is not valid!");
 
         const q =

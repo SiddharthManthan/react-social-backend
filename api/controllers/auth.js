@@ -1,6 +1,7 @@
 import { db } from "../connect.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import config from "../config.js";
 
 const MAXAGE = 31 * 24 * 60 * 60;
 
@@ -13,7 +14,6 @@ export const register = (req, res) => {
 
         // Create New User
         // Hash the password
-        //TODO: How does salt work ?
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
@@ -46,8 +46,7 @@ export const login = (req, res) => {
         if (!checkPassword)
             return res.status(400).json("Wrong Password or Username");
 
-        //TODO: Use env
-        const token = jwt.sign({ id: data[0].id }, "TypSML6yG7aHIqb969hb");
+        const token = jwt.sign({ id: data[0].id }, config.jwtsecret);
         const { password, ...others } = data[0];
         return res
             .status(200)

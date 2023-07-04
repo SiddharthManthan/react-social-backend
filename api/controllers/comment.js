@@ -1,6 +1,7 @@
 import { db } from "../connect.js";
 import jwt from "jsonwebtoken";
 import moment from "moment";
+import config from "../config.js";
 
 export const getComments = (req, res) => {
     const q = `SELECT c.*, u.id AS userId, name, profilePic FROM comments AS c JOIN users AS u ON (u.id = c.userId)
@@ -17,8 +18,7 @@ export const addComment = (req, res) => {
     const token = req.cookies.accessToken;
     if (!token) return res.status(401).json("Not logged in!");
 
-    //TODO : Hardcoded key
-    jwt.verify(token, "TypSML6yG7aHIqb969hb", (err, userInfo) => {
+    jwt.verify(token, config.jwtsecret, (err, userInfo) => {
         if (err) return res.status(403).json("Token is not valid!");
 
         const q =
