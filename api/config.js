@@ -7,6 +7,7 @@ const config = {
     hostname: process.env.HOSTNAME,
     apiport: process.env.SOCIALBOOK_API_PORT,
     jwtsecret: process.env.JWTSECRET,
+    publicuploadfolder: process.env.PUBLIC_UPlOAD_FOLDER,
     db: {
         host: process.env.DBHOST,
         user: process.env.DBUSER,
