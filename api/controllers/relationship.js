@@ -7,7 +7,10 @@ export const getRelationships = (req, res) => {
         "SELECT followerUserId FROM relationships WHERE followedUserId = ?";
 
     db.query(q, [req.query.followedUserId], (err, data) => {
-        if (err) return res.status(500).json(err);
+        if (err) {
+            console.error(err);
+            return res.status(500).json(err);
+        }
         return res
             .status(200)
             .json(data.map((relationship) => relationship.followerUserId));
@@ -26,7 +29,10 @@ export const addRelationship = (req, res) => {
         const values = [userInfo.id, req.body.userId];
 
         db.query(q, [values], (err, data) => {
-            if (err) return res.status(500).json(err);
+            if (err) {
+                console.error(err);
+                return res.status(500).json(err);
+            }
             return res.status(200).json("Following");
         });
     });
@@ -43,7 +49,10 @@ export const deleteRelationship = (req, res) => {
             "DELETE FROM relationships WHERE `followerUserId` = ? AND `followedUserId` = ?";
 
         db.query(q, [userInfo.id, req.query.userId], (err, data) => {
-            if (err) return res.status(500).json(err);
+            if (err) {
+                console.error(err);
+                return res.status(500).json(err);
+            }
             return res.status(200).json("Unfollow");
         });
     });

@@ -9,7 +9,10 @@ export const getComments = (req, res) => {
     `;
 
     db.query(q, [req.query.postId], (err, data) => {
-        if (err) return res.status(500).json(err);
+        if (err) {
+            console.error(error);
+            return res.status(500).json(err);
+        }
         return res.status(200).json(data);
     });
 };
@@ -19,7 +22,10 @@ export const addComment = (req, res) => {
     if (!token) return res.status(401).json("Not logged in!");
 
     jwt.verify(token, config.jwtsecret, (err, userInfo) => {
-        if (err) return res.status(403).json("Token is not valid!");
+        if (err) {
+            console.error(err);    
+            return res.status(403).json("Token is not valid!");
+        }
 
         const q =
             "INSERT INTO comments(`desc`, `createdAt`, `userId`, `postId`) VALUES (?)";
@@ -31,7 +37,10 @@ export const addComment = (req, res) => {
         ];
 
         db.query(q, [values], (err, data) => {
-            if (err) return console.log(err) && res.status(500).json(err);
+            if (err) {
+                console.error(err);
+                return res.status(500).json(err);
+            }
             return res.status(200).json("Comment has been created.");
         });
     });

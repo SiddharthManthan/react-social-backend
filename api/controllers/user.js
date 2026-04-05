@@ -7,7 +7,10 @@ export const getUser = (req, res) => {
     const q = "SELECT * FROM users WHERE id=?";
 
     db.query(q, [userId], (err, data) => {
-        if (err) return res.status(500).json(err);
+        if (err) {
+            console.error(err);
+            return res.status(500).json(err);
+        }
         const { password, ...info } = data[0];
         return res.json(info);
     });
