@@ -18,10 +18,10 @@ app.use((req, res, next) => {
     next();
 });
 app.use(express.json());
-//TODO: CORS not reading config variable
 app.use(
     cors({
-        origin: config.hostname,
+        origin: true, // Dynamically allows the domain currently making the request
+        credentials: true, // Essential if you use Cookies or JWT in headers
     })
 );
 app.use(cookieParser());
