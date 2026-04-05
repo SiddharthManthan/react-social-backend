@@ -12,18 +12,16 @@ import config from "./config.js";
 
 const app = express();
 
-// Middlewares
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Credentials", true);
-    next();
-});
-app.use(express.json());
+// Cors
 app.use(
     cors({
         origin: true, // Dynamically allows the domain currently making the request
         credentials: true, // Essential if you use Cookies or JWT in headers
     })
 );
+
+// Middlewares
+app.use(express.json());
 app.use(cookieParser());
 
 const storage = multer.diskStorage({
